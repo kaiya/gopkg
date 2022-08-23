@@ -1,5 +1,5 @@
 {
-  "redirects": [
-    { "source": "/go", "destination": "/api/hello", "permanent": true }
+  "rewrites": [
+    { "source": "/go", "destination": "/api/hello"}
   ]
 }
