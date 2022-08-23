@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/go", "destination": "/api/hello", "permanent": true }
+  ]
+}
