@@ -7,23 +7,7 @@ import (
 )
 
 var (
-	formatStr = `
-	<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta tag for go get -->
-    <meta name="go-import"
-          content="%s
-                   git %s" />
-    <!-- Meta tag for godoc -->
-    <meta name="go-source"
-          content="kaiya.js.org/goutils
-                   https://github.com/kaiya/goutils />
-    <!-- Redirect human visitors -->
-    <meta http-equiv="refresh" content="0; url=https://github.com/kaiya/goutils">
-</head>
-</html>
-	`
+	formatStr  = `<!DOCTYPE html><html lang="en"><head><meta name="go-import" content="%s git %s" /></head></html>`
 	hostName   = "kaiya.js.org"
 	importHost = "https://github.com"
 )
@@ -37,7 +21,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	}
 	user, pkg, version := splitPkgName(r.URL.Path)
-	importPath := fmt.Sprintf("%s/%s/%s", importHost, user, pkg)
+	importPath := fmt.Sprintf("%s/%s/%s@%s", importHost, user, pkg, version)
 	fmt.Fprintf(w, formatStr, hostName, importPath)
 	w.Write([]byte(fmt.Sprintf("user:%s, pkg:%s, version:%s", user, pkg, version)))
 }
