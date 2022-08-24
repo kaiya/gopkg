@@ -20,13 +20,20 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 	}
-	user, pkg, version := splitPkgName(r.URL.Path)
-	importPath := fmt.Sprintf("%s/%s/%s", importHost, user, pkg)
-	fmt.Fprintf(w, formatStr, fmt.Sprintf("%s/%s/%s", hostName, user, pkg), importPath)
+	user, pkg, version, onlyPkg := splitPkgName(r.URL.Path)
+	remotePath := fmt.Sprintf("%s/%s/%s", importHost, user, pkg)
+	var importPrefix string
+	if onlyPkg {
+		importPrefix = fmt.Sprintf("%s/%s", hostName, pkg)
+	} else {
+		importPrefix = fmt.Sprintf("%s/%s/%s", hostName, user, pkg)
+	}
+
+	fmt.Fprintf(w, formatStr, importPrefix, remotePath)
 	w.Write([]byte(fmt.Sprintf("user:%s, pkg:%s, version:%s", user, pkg, version)))
 }
 
-func splitPkgName(originalPath string) (user, pkg, version string) {
+func splitPkgName(originalPath string) (user, pkg, version string, onlyPkg bool) {
 	// support two case:
 	// 1. example.org/goutils.v1
 	// 2. exmaple.org/kaiya/goutils.v1
@@ -34,6 +41,7 @@ func splitPkgName(originalPath string) (user, pkg, version string) {
 	var pkgWithVer string
 	tmpPath := strings.SplitN(path, "/", 2)
 	if len(tmpPath) == 1 {
+		onlyPkg = true
 		pkgWithVer = tmpPath[0]
 	} else if len(tmpPath) == 2 {
 		user, pkgWithVer = tmpPath[0], tmpPath[1]
@@ -45,7 +53,7 @@ func splitPkgName(originalPath string) (user, pkg, version string) {
 	if len(tmpPkg) == 2 {
 		version = tmpPkg[1]
 	}
-	if len(tmpPath) == 1 {
+	if onlyPkg {
 		user = fmt.Sprintf("go-%s", pkg)
 	}
 	return
