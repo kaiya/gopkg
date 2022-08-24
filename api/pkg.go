@@ -37,7 +37,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	}
 	user, pkg, version := splitPkgName(r.URL.Path)
-	importPath := fmt.Sprintf("%s/%s/%s@%s", importHost, user, pkg, version)
+	importPath := fmt.Sprintf("%s/%s/%s", importHost, user, pkg)
 	fmt.Fprintf(w, formatStr, hostName, importPath)
 	w.Write([]byte(fmt.Sprintf("user:%s, pkg:%s, version:%s", user, pkg, version)))
 }
