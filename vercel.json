@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/todo", "destination": "/api/todo.go"}
+    { "source": "/todo/(.*)", "destination": "/api/todo.go"}
     { "source": "/zip", "destination": "/api/db.go"},
     { "source": "/(.*)", "destination": "/api/pkg.go"}
   ]
