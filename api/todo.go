@@ -7,7 +7,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-gorm/gorm"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 type todoModel struct {
