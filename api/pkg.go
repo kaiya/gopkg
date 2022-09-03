@@ -8,7 +8,7 @@ import (
 
 var (
 	formatStr  = `<!DOCTYPE html><html lang="en"><head><meta name="go-import" content="%s git %s" /></head></html>`
-	hostName   = "kaiya.js.org"
+	Hostname   = "kaiya.js.org"
 	importHost = "https://github.com"
 )
 
@@ -24,9 +24,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	remotePath := fmt.Sprintf("%s/%s/%s", importHost, user, pkg)
 	var importPrefix string
 	if onlyPkg {
-		importPrefix = fmt.Sprintf("%s/%s", hostName, pkg)
+		importPrefix = fmt.Sprintf("%s/%s", Hostname, pkg)
 	} else {
-		importPrefix = fmt.Sprintf("%s/%s/%s", hostName, user, pkg)
+		importPrefix = fmt.Sprintf("%s/%s/%s", Hostname, user, pkg)
 	}
 
 	fmt.Fprintf(w, formatStr, importPrefix, remotePath)
