@@ -28,7 +28,7 @@ var (
 )
 
 const (
-	cacheControlPolicy = "s-maxage=60, stale-while-revalidate=3540"
+	cacheControlPolicy = "max-age=40, s-maxage=60, stale-while-revalidate=3540"
 )
 
 func init() {
