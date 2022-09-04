@@ -27,6 +27,10 @@ var (
 	app *gin.Engine
 )
 
+const (
+	cacheControlPolicy = "s-maxage=60, stale-while-revalidate=3540"
+)
+
 func init() {
 	//gin
 	app = gin.New()
@@ -84,7 +88,7 @@ func FetchAllTodo(c *gin.Context) {
 		_todos = append(_todos, transformedTodo{ID: item.ID, Title: item.Title, Completed: completed})
 	}
 	// stale-while-revalidate, vercel feature
-	//c.Header("Cache-Control", "s-maxage=3600, stale-while-revalidate")
+	c.Header("Cache-Control", cacheControlPolicy)
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todos})
 }
 
@@ -104,7 +108,7 @@ func FetchSingleTodo(c *gin.Context) {
 		completed = false
 	}
 	_todo := transformedTodo{ID: todo.ID, Title: todo.Title, Completed: completed}
-	//c.Header("Cache-Control", "s-maxage=3600, stale-while-revalidate")
+	c.Header("Cache-Control", cacheControlPolicy)
 	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": _todo})
 }
 
