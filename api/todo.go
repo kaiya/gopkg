@@ -1,13 +1,11 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/mysql"
+	"github.com/kaiya/gopkg/once"
 	"gorm.io/gorm"
 )
 
@@ -33,18 +31,11 @@ const (
 
 func init() {
 	//gin
-	app = gin.New()
+	app = once.CreateApp()
 	r := app.Group("/todo")
 	registerRouter(r)
 	//db
-	sqlUser := os.Getenv("SQL_USER")
-	sqlPass := os.Getenv("SQL_PASS")
-	var err error
-	db, err = gorm.Open(mysql.Open(fmt.Sprintf("%s:%s@tcp(gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000)/todo?parseTime=true", sqlUser, sqlPass)))
-	if err != nil {
-		panic(err)
-	}
-	db.AutoMigrate(&todoModel{})
+	db = once.OpenDB("todo", &todoModel{})
 }
 func registerRouter(api *gin.RouterGroup) {
 	api.POST("/", CreateTodo)
