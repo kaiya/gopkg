@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/kaiya/play/httprouter"
+	"github.com/julienschmidt/httprouter"
 )
 
 var router *httprouter.Router
