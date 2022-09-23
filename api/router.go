@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
+	"github.com/kaiya/play/httprouter"
 )
 
 var router *httprouter.Router
@@ -16,7 +16,7 @@ func init() {
 
 func registerHttpRouter(r *httprouter.Router) {
 	r.NotFound = http.HandlerFunc(NotFoundHandler)
-	r.GET("/hello/:name", HelloHandler)
+	r.GET("/router/hello/:name", HelloHandler)
 }
 
 func RouterHandler(w http.ResponseWriter, r *http.Request) {
