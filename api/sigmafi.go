@@ -56,6 +56,12 @@ func registerSigmaHttpRouter(r *httprouter.Router) {
 	r.GET("/sigmafi/order/:orderId", getOrderById)
 }
 
+func SigmafiHandler(w http.ResponseWriter, r *http.Request) {
+	// preprocess
+	sigmaRouter.ServeHTTP(w, r)
+	// postprocess
+}
+
 func getOrderById(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	orderIdStr := p.ByName("orderId")
 	orderId, err := strconv.ParseInt(orderIdStr, 10, 64)
