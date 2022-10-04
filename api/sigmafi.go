@@ -52,7 +52,7 @@ func init() {
 }
 
 func registerSigmaHttpRouter(r *httprouter.Router) {
-	r.NotFound = http.HandlerFunc(NotFoundHandler)
+	// r.NotFound = http.HandlerFunc(NotFoundHandler)
 	r.GET("/sigmafi/order/:orderId", getOrderById)
 }
 
