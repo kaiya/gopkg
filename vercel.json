@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/sigmafi/(.*)", "destination": "/api/sigmafi.go"},
     { "source": "/todo/(.*)", "destination": "/api/todo.go"},
     { "source": "/zip", "destination": "/api/db.go"},
     { "source": "/router/(.*)", "destination": "/api/router.go"},
